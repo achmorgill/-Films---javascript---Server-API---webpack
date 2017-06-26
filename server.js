@@ -8,10 +8,31 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var Film = require('./client/src/models/film');
 var Review = require('./client/src/models/review');
-var filmsSeedData = require('./client/src/models/films');
+var filmsSeedData = require('./client/src/models/films_seed_data');
 var films = filmsSeedData();
 
+app.delete( "/api/films/:id", function( req, res ) {
+  films.splice(req.params.id, 1);
+  res.json( { data: films } );
+});
 
+app.put( '/api/films/:id', function( req, res ) {
+    films[ req.params.id ] = req.body.film;
+    res.json( { data: films } );
+  });
+
+app.post( '/api/films', function( req, res ) {
+  films.push( req.body.film );
+  res.json( { data: films } );
+});
+
+app.get('/api/films/:id', function( req, res ) {
+  res.json( { data: films[ req.params.id ] } )
+});
+
+app.get('/api/films', function( req, res ) {
+  res.json({ data: films });
+});
 
 app.get('/', function () {
   res.sendFile(__dirname + '/client/build/index.html')

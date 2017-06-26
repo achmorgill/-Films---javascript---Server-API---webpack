@@ -21,6 +21,7 @@ UI.prototype = {
     this.appendText(container, review.comment, "Comment: ");
     this.appendText(container, review.rating, "Rating: ");
     this.appendText(container, review.author, "Author: ");
+
   },
 
   render: function(films) {
@@ -29,6 +30,7 @@ UI.prototype = {
     for(var film of films) {
       var li = document.createElement("li");
       this.appendText(li, film.title, "Film: ");
+      this.appendText(li, review.genre, "Genre: ");
 
       for(var review of film.reviews){
         this.createReview(li, review);
